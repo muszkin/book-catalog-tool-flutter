@@ -14,7 +14,7 @@ class BookDAO{
         join(path, 'book_catalog_tool.db'),
         onCreate: (db, version) {
           return db.execute(
-            "CREATE TABLE book(id INTEGER PRIMIARY KEY AUTO_INCREMENT, title TEXT, author TEXT, isbn BIGINT, thumbnail STRING, description STRING)",
+            "CREATE TABLE book(id INTEGER PRIMIARY KEY AUTO_INCREMENT, title TEXT, author TEXT, isbn STRING, thumbnail STRING, description STRING)",
           );
         },
         version: 1
@@ -24,6 +24,24 @@ class BookDAO{
   Future<void> insertBook(Book book) async {
     final Database db = await database;
     await db.insert('book', book.toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<Book> getBook(Book book) async {
+    final Database db = await database;
+    List<Map<String, dynamic>> row = await db.query('book', where: "isbn = ?", whereArgs: [book.isbn], limit: 1);
+    return Book(
+      id: row[0]['id'],
+      title: row[0]['title'],
+      author: row[0]['author'],
+      isbn: row[0]['isbn'],
+      thumbnail: row[0]['thumbnail'],
+      description: row[0]['description']
+    );
+  }
+
+  Future<void> deleteBook(Book book) async {
+    final Database db = await database;
+    await db.delete('book', where: 'isbn = ?', whereArgs: [book.isbn]);
   }
 
   Future<List<Book>> books() async {
