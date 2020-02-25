@@ -37,12 +37,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Book> books = List<Book>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _biggerFont = const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
 
   _MyHomePageState() {
     bookDAO.BookDAO().books().then((List<Book> books){
       for (Book book in books) {
-        this.books.add(book);
+        setState(() => this.books.add(book));
       }
     });
   }
@@ -74,10 +74,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: new Card(
-                  child: new Column(
-                    children: <Widget>[
-                      new Padding(padding: new EdgeInsets.all(16.0)),
-                      new Text(books[index].toMap()['title'],style: _biggerFont)
+                  child: new Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(books[index].toMap()['thumbnail']),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(height: 64 ,),
+                            Text(books[index].toMap()['title'],style: _biggerFont)
+                          ],
+                        ),
+                      )
                     ],
                   ),),
                 );
