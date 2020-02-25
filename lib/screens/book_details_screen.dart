@@ -38,51 +38,47 @@ class _BookDetailsWidgetState extends State<BookDetailsWidget> {
           child: new Icon(Icons.arrow_back),
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Image.network(widget.book.thumbnail)
-              ],
-            ),
-          ),
-          Expanded(
+      body:Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
             child:
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 Expanded(
-                  child:
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: new Text("Title: " + widget.book.title),
-                      )
-                    ],
-                  ),
+                    child:Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(widget.book.thumbnail)
+                      ],
+                    )
                 ),
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(child: new Text("Authors: " + widget.book.title))
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("Title: " + widget.book.title),
+                      Divider(height: 32,),
+                      Text("Authors: " + widget.book.title)
                     ],
-                  )
+                  ),
                 ),
               ],
             ),
           ),
-          Expanded(
+          Container(
+            padding: const EdgeInsets.all(24),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 Expanded(
-                  child: new Text("Description: " +  widget.book.description)
+                  child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Description: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Divider(height: 32,),
+                      Text(widget.book.description,style: TextStyle(fontWeight: FontWeight.bold),)
+                    ],
+                  )
                 )
               ],
             ),

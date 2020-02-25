@@ -51,7 +51,7 @@ class BookDAO{
       return Book(id: maps[index]['id'],
         title: maps[index]['title'],
         author: maps[index]['author'],
-        isbn: maps[index]['isbn'],
+        isbn: maps[index]['isbn'].toString(),
         thumbnail: maps[index]['thumbnail'],
         description: maps[index]['description'],
       );
