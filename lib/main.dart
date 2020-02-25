@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:book_catalog_tool/screens/book_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:http/http.dart' as http;
@@ -67,10 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index) {
               return new GestureDetector(
                 onTap: () {
-                  setState(() {
-                    bookDAO.BookDAO().deleteBook(this.books[index]);
-                    this.books.removeAt(index);
-                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BookDetailsScreen(book: books[index],)),
+                  );
                 },
                 child: new Card(
                   child: new Column(
